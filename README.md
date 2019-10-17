@@ -1,2 +1,2 @@
 # svfcovgen
-Generate systemverilog functional coverage generator
+Systemverilog functional coverage generator
