@@ -34,6 +34,10 @@ class FCOV:
                             self.bin_val_col_num = col
                         elif(sheet.cell(row,col).value=="PREFIXS"):
                             self.prefixs_col_num = col
+                        elif(sheet.cell(row,col).value=="OPTION"):
+                            self.option_col_num = col
+                        elif(sheet.cell(row,col).value=="OPTION_EXP"):
+                            self.option_exp_col_num = col
                     self.all_cp_cc = [];
                 else:
                     label = sheet.cell(row,self.label_col_num).value
@@ -48,21 +52,19 @@ class FCOV:
 			this_iff = sheet.cell(row,self.iff_col_num).value
 			this_prefixs = sheet.cell(row,self.prefixs_col_num).value
 			# new a coverage structure
-			print("new cov struct -"+label)
+			# print("new cov struct -"+label)
 			self.cp = COVERPOINT(label, this_target, this_iff, this_prefixs)
 	       	    elif('FIN' in label):
 			self.line_state = 0
 			self.cp.gen_coverpoint()
 			print(self.cp)
 		    else:
-			self.line_state = 2
+                        if(self.line_state == 1):
+			    self.line_state = 2
 						
 		    bin_type = sheet.cell(row,self.bin_type_col_num).value
 		    bin_name = sheet.cell(row,self.bin_name_col_num).value
-	            if(isinstance(sheet.cell(row,self.bin_val_col_num).value, float)):
-			bin_val = str(int(sheet.cell(row,self.bin_val_col_num).value))
-		    else:
-			bin_val = sheet.cell(row,self.bin_val_col_num).value
+                    bin_val = self.de_float(sheet.cell(row,self.bin_val_col_num).value)
 
 		    # Handle the decoding of ' character. To deal with strings like 2'b10, 32'hffff
 		    bin_val = bin_val.replace(u'\u2019', u'\'').encode('ascii', 'ignore')
@@ -77,11 +79,23 @@ class FCOV:
 			    this_bin = COV_BIN(bin_name, bin_val, bin_type)
 
 		        self.cp.add_bins(this_bin)
+                    # add options to cp
+                    # Options is independently to bins 
+                    if(self.line_state ==1 or self.line_state ==2):
+                        option_exp = self.de_float(sheet.cell(row,self.option_exp_col_num).value)
+                        if(sheet.cell(row,self.option_col_num).value !=''):
+                            self.cp.add_options(sheet.cell(row,self.option_col_num).value,option_exp)
 
+    def de_float(self,in_val):
+        if(isinstance(in_val, float)):
+            out = str(int(in_val))
+        else:
+            out = in_val 
+        return out
+          
 
-
-	def __str__(self):
-	    return ("LABEL=%d, TARGET=%d, IFF=%d, BIN_NAME=%d, BIN_VAL+%d, PREFIXS=%d" % (self.label_col_num,
+    def __str__(self):
+	return ("LABEL=%d, TARGET=%d, IFF=%d, BIN_NAME=%d, BIN_VAL+%d, PREFIXS=%d" % (self.label_col_num,
 		        self.target_col_num,
 			self.iff_col_num,
 			self.bin_name_col_num,

@@ -66,8 +66,9 @@ class COVERPOINT(COV_STRUCT):
     def add_bins(self, cov_bin): 
         self.cov_bins.append(cov_bin)
 
-    def add_options(self, options):
-        self.cov_options.append(options)
+    def add_options(self, option, option_exp):
+        this_option = [option, option_exp]
+        self.options.append(this_option)
 
     def add_predef_bins(self, predef_bin):
         for i in predef_bin.cov_bins:
@@ -83,6 +84,12 @@ class COVERPOINT(COV_STRUCT):
             line1 = line1 + ' {'
 
         self.cov_struct_s.append(line1)
+        # options
+       
+
+        # bins
+        for option in self.options: 
+            self.cov_struct_s.append('  %s = %s;'% (option[0], option[1]))
 
         if(len(self.cov_bins)>0):
             for ii in self.cov_bins:
