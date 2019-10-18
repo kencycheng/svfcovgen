@@ -4,6 +4,8 @@
 class COV_STRUCT:
     def __init__(self):
         self.cov_struct_s = []
+        self.cov_bins = []
+        self.options = []
 
     def __str__(self):
         s=""
@@ -58,8 +60,6 @@ class COVERPOINT(COV_STRUCT):
         self.target = target 
         self.iff = iff
         self.prefix = prefix
-        self.cov_bins = []
-        self.options = []
         self.predef_bins= []
         COV_STRUCT.__init__(self) 
 
@@ -100,17 +100,15 @@ class COVERPOINT(COV_STRUCT):
 
 class CROSS(COV_STRUCT):
     def __init__(self, cc_name, target):
-        self.cc_name = cc_name
+        self.cp_name = cc_name
         self.target  = target
-        self.cov_bins = []
-        self.options = []
         COV_STRUCT.__init__(self) 
 
     def add_bins(self, cov_bin): 
         self.cov_bins.append(cov_bin)
 
     def gen_cross(self): 
-        line1 = self.cc_name + ':' + ' cross ' + self.target;
+        line1 = self.cp_name + ':' + ' cross ' + self.target;
         if(len(self.cov_bins) == 0):
             line1 = line1 + ';'
         else:
