@@ -18,14 +18,14 @@ Table1 is identical to Table2
 
 Table1
 
-| Label  | TARGET |PRIORITY|
-| ------------- | ------------- | ------------- |
-| cp_pkt_len| pkt_len  |1|
-| cp_speed  | speed  |2|
+|^| Label  | TARGET |PRIORITY|
+| ------------- |------------- | ------------- | ------------- |
+| |cp_pkt_len| pkt_len  |1|
+| |cp_speed  | speed  |2|
 
 Table2
 
-| Label  |PRIORITY| TARGET |
-| ------------- | ------------- | ------------- |
-| cp_pkt_len|1| pkt_len  |
-| cp_speed  |2| speed  |
+|^|Label  |PRIORITY| TARGET |
+|------------- |------------- | ------------- | ------------- |
+| |cp_pkt_len|1| pkt_len  |
+| |cp_speed  |2| speed  |
