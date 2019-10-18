@@ -14,7 +14,7 @@ $: The end the row
 ## The other column definition are changable
 The column position is changable. The parser will recognite the column position according keywords of the first row. The first row is the row which has a '^' in the column 0.
 
-Table1 is identical to Table2 
+The paring result of table1 and table2 is identical.
 
 Table1
 
