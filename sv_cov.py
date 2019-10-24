@@ -25,8 +25,12 @@ class COV_BIN:
             if(keyword in self.bin_val):
                 with_keyword = 1
                 break
-        if(with_keyword == 0):
+        
+        if('=>' in self.bin_val):
+            self.bin_val = '( ' + self.bin_val + ' )'
+        elif(with_keyword == 0):
             self.bin_val = '{ ' + self.bin_val + ' }'
+
 
         s =self.bin_type + ' %12s'% self.bin_name + ' = ' + self.bin_val + ';' 
         return s
