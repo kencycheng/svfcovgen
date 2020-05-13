@@ -57,6 +57,7 @@ class FCOV:
 						
 		    bin_type = sheet.cell(row,self.bin_type_col_num).value
 		    bin_name = sheet.cell(row,self.bin_name_col_num).value
+		    bin_name = sheet.cell(row,self.bin_name_col_num).value.rstrip(' ')
                     bin_val = self.de_float(sheet.cell(row,self.bin_val_col_num).value)
 
 		    # Handle the decoding of ' character. To deal with strings like 2'b10, 32'hffff
@@ -119,4 +120,4 @@ class FCOV:
 
 fcov = FCOV(sheets)
 fcov.print_sheet()
-print(fcov)
+sys.stderr.write('%s'% fcov)
