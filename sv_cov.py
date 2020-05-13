@@ -99,7 +99,9 @@ class COVERPOINT(COV_STRUCT):
             for ii in self.cov_bins:
                 self.cov_struct_s.append('  ' + str(ii))
             self.cov_struct_s.append('} ')
-
+    
+    def gen_it(self): 
+        self.gen_coverpoint()
 
 
 class CROSS(COV_STRUCT):
@@ -124,3 +126,5 @@ class CROSS(COV_STRUCT):
             for ii in self.cov_bins:
                 self.cov_struct_s.append('  ' + str(ii))
             self.cov_struct_s.append('} ')
+    def gen_it(self): 
+        self.gen_cross()

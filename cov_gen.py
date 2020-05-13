@@ -30,7 +30,7 @@ class FCOV:
                     label = sheet.cell(row,self.label_col_num).value
                     if (('cp_' in label)or('cc_' in label)):
                         if(self.cp_line_state == 2 or self.cp_line_state == 3):
-			    self.cp.gen_coverpoint()
+		            self.cp.gen_it()
 			    print(self.cp)
 			self.cp_line_state = 2
                         cp_info[1] +=1
@@ -41,7 +41,11 @@ class FCOV:
 			this_prefixs = sheet.cell(row,self.prefixs_col_num).value
 			# new a coverage structure
 			# print("new cov struct -"+label)
-			self.cp = COVERPOINT(label, this_target, this_iff, this_prefixs)
+                        if('cp_' in label):
+			    self.cp = COVERPOINT(label, this_target, this_iff, this_prefixs)
+                        else:
+			    self.cp = CROSS(label, this_target)
+
 	       	    elif('$' in sheet.cell(row,0).value):
 			self.cp_line_state = 0
 			self.cp.gen_coverpoint()
